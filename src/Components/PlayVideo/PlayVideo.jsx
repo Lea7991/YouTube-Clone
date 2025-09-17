@@ -13,7 +13,7 @@ const PlayVideo = () => {
     <div className='play-video'>
         <video src={video1} controls autoPlay muted></video>
         <h3>Best YouTube Channel to Learn Web Development</h3>
-        <div className="play-video-inf0">
+        <div className="play-video-info">
             <p>1525 Views &bull; 2 days ago</p>
             <div>
                 <span><img src={like} alt="" />125</span>
@@ -21,6 +21,8 @@ const PlayVideo = () => {
                 <span><img src={share} alt="" />Share</span>
                 <span><img src={save} alt="" />Save</span>
             </div>
+         </div>
+
             <hr />
             <div className="publisher">
                 <img src={jack} alt="" />
@@ -96,7 +98,6 @@ const PlayVideo = () => {
                     </div>
                 </div>
             </div>
-        </div>
     </div>
   )
 }

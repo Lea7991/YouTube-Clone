@@ -12,7 +12,8 @@ import moment from 'moment'
 
 const PlayVideo = ({videoId}) => {
 
-    const [apiData, setApiData] = useState(null)
+    const [apiData, setApiData] = useState(null);
+    const [channelData, setChannelData] = useState(null);
 
     const fetchVideoData = async () => {
         //fetching videos data 
@@ -20,9 +21,19 @@ const PlayVideo = ({videoId}) => {
         await fetch(videoDetails_url).then(res=>res.json()).then(data => setApiData(data.items[0]))
     }
 
+    const fetchOtherData = async () => {
+        //fetching channel data 
+        const channelData_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`
+        await fetch(channelData_url).then(res=>res.json()).then(data=>setChannelData(data.items[0]))
+    }
+
     useEffect(() => {
-        fetchVideoData();
+        fetchVideoData(); 
     }, [])
+
+    useEffect(() => {
+        fetchOtherData();
+    },[apiData])
 
   return (
     <div className='play-video'>
@@ -41,7 +52,7 @@ const PlayVideo = ({videoId}) => {
 
             <hr />
             <div className="publisher">
-                <img src={jack} alt="" />
+                <img src={channelData?channelData.snippet.thumbnails.default.url:""} alt="" />
                 <div>
                     <p>{apiData?apiData.snippet.channelTitle:""}</p>
                     <span>1M Subscribers</span>
